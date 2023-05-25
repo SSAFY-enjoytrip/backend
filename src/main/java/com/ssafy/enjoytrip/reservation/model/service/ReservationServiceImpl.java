@@ -5,6 +5,7 @@ import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
+import com.ssafy.enjoytrip.reservation.model.dto.request.ReviewStatusRequestDto;
 import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
 import com.ssafy.enjoytrip.reservation.model.mapper.ReservationMapper;
@@ -123,5 +124,11 @@ public class ReservationServiceImpl implements ReservationService {
         memberService.updateMileage(Member.forDeductMileage(reservation.getCustomerId(), restPrice));
         reservationMapper.confirmReservation(reservation);
 
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public boolean canWriteReview(ReviewStatusRequestDto reviewStatusRequestDto) {
+        return reservationMapper.canWriteReview(reviewStatusRequestDto);
     }
 }

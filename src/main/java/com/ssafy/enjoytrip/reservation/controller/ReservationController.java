@@ -5,6 +5,7 @@ import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
+import com.ssafy.enjoytrip.reservation.model.dto.request.ReviewStatusRequestDto;
 import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationDateResponseDto;
 import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
@@ -116,6 +117,13 @@ public class ReservationController {
         log.info("GET - findAvailableDate");
 
         return ResponseEntity.ok().body(reservationDateService.findAllDateByRoomIdAfterToday(roomId));
+    }
+
+    @PostMapping("/review-availability")
+    public ResponseEntity<Boolean> canWriteReview(@AuthenticationPrincipal Member member, @RequestBody ReviewStatusRequestDto reviewStatusRequestDto) {
+        log.info("'{}' member request review auth", member.getLoginId());
+
+        return ResponseEntity.ok().body(reservationService.canWriteReview(reviewStatusRequestDto));
     }
 
 }

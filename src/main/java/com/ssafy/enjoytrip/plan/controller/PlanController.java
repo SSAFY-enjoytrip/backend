@@ -68,6 +68,8 @@ public class PlanController {
 
         planDto.setMemberId(memberService.findByLoginId(member.getLoginId()).getId());
 
+        log.info(planDto.toString());
+
         planService.write(planDto);
 
         return new ResponseEntity<>(HttpStatus.OK);

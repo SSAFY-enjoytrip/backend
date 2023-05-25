@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.enjoytrip.plan.model.dto.PlanDto">
+<mapper namespace="com.ssafy.enjoytrip.plan.model.mapper.PlanMapper">
 
     <resultMap id="planDto" type="PlanDto">
         <result column="plan_id" property="planId"></result>
@@ -34,7 +34,7 @@
     </update>
 
     <delete id="delete" parameterType="long">
-        delete plan
+        delete from plan
         where plan_id = #{planId}
     </delete>
 

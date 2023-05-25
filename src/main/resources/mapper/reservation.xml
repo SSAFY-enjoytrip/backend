@@ -45,4 +45,20 @@
     SET ispaid = true
     WHERE reservation_id = #{id};
   </update>
+
+  <select id="canWriteReview" parameterType="ReviewStatusRequestDto" resultType="boolean">
+    SELECT
+      CASE
+        WHEN
+            (SELECT count(*)
+             FROM reservation
+             WHERE ispaid = true
+               AND room_id = #{roomId}
+               AND customer_id = #{customerId}
+               AND check_out_date BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL 14 DAY)) >= 1
+          THEN true
+        ELSE false
+        END
+  </select>
+
 </mapper>
